@@ -1,0 +1,50 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Request {
+  id        Int      @id @default(autoincrement()) @map("request_id")
+  createdAt DateTime @default(now()) @map("created_at")
+
+  urlHh String?
+
+  prompt String?
+
+  //=========== RELATIONS ===========//
+  resumes Resumes[]
+
+  @@map("request")
+}
+
+model Resumes {
+  id Int @id @default(autoincrement()) @map("resume_id")
+
+  idResumeHh String? @map("resume_hh_id")
+
+  urlResume String? @map("resume_url")
+
+  firstName String? @map("first_name")
+
+  lastName String? @map("last_name")
+
+  middleName String? @map("middle_name")
+
+  age Int?
+
+  title String?
+
+  totalExperience Int? @map("total_experience")
+
+  scoreball Int?
+
+  //=========== RELATIONS ===========//
+  Request   Request? @relation(fields: [requestId], references: [id], onDelete: Cascade)
+  requestId Int?     @map("request_id")
+
+  @@map("resumes")
+}
