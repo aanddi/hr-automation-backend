@@ -11,7 +11,7 @@ model Request {
   id        Int      @id @default(autoincrement()) @map("request_id")
   createdAt DateTime @default(now()) @map("created_at")
 
-  urlHh String?
+  urlHh String?     @map("url_hh")
 
   prompt String?
 
