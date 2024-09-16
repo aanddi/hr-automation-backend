@@ -3,8 +3,7 @@
 
 <br />
 <h1>* getListCandidates</h2>
-<p>Сервис получает описание от юзера (промпт), вскармливает этот промпт gpt (GPT service => Assistant) и получает сгенрированную ссылку hh.ru для поиска резюме.</p>
-<p>Ссылку отдаем в сервис hh (HHru service => searchForUrl) и получаем список резюме</p>
+<p>Сервис получает описание от юзера (промпт), вскармливает этот промпт gpt (GPT service => Assistant) и получает сгенрированную ссылку hh.ru для поиска резюме. Ссылку отдаем в сервис hh (HHru service => searchForUrl) и получаем список резюме.</p>
 
 <h3>Request:</h3>
 
@@ -13,22 +12,29 @@ POST /api/search
 ```
 
 ```bash
-description - промпт от юзера 
+dto:
+{
+    description - промпт от юзера 
+}
+
 ```
 
 <p>Пример данных:</p>
 
 ```bash
 {
-    "description": "java разработчик 5 лет опыта из Москвы"
+    "description": "Найди мне Java разработчика, который имеет 5 лет опыта из Москвы"
 }
 ```
 
 <h3>Response:</h3>
 
 ```bash
-urlHHruApi - сгенерированная ссылка от ассистента
-listCandidates - ответ от hh service (HHru service => searchForUrl)
+{
+    urlHHruApi - сгенерированная ссылка от ассистента gpt (GPT service => Assistant)
+    listCandidates - ответ от hh service (HHru service => searchForUrl)
+}
+
 ```
 <p>Пример данных:</p>
 
