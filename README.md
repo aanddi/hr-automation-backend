@@ -6,7 +6,7 @@ $ yarn install
 
 ## Запуск приложения
 
-### 1) Генерация Prisma Clients
+### 1) Генерация [Prisma Clients](https://www.prisma.io/docs/orm/prisma-client/setup-and-configuration/instantiate-prisma-client)
 
 ```bash
 $ npx prisma generate
