@@ -1,11 +1,16 @@
 <h1>Request service</h1>
 
+
+<br />
 <h1>* getAllRequests</h2>
+
+<p>Получение всех запросов</p>
 <h3>Request:</h3>
 
 ```bash
 GET /api/request/all
 ```
+
 <h3>Response:</h3>
 <p>Пример:</p>
 
@@ -24,9 +29,12 @@ GET /api/request/all
 }
 ```
 
-<h1>* getRequestsById</h2>
-<h3>Request:</h3>
 
+<br />
+<h1>* getRequestsById</h2>
+
+<p>Получение запроса по id</p>
+<h3>Request:</h3>
 <p>id - айди карточки запроса</p>
 
 ```bash
@@ -62,11 +70,72 @@ GET /api/request/byId/id
 }
 ```
 
-<h1>* deleteRequestById</h2>
-<h3>Request:</h3>
 
+<br />
+<h1>* deleteRequestById</h2>
+
+<p>Удаление запроса по id (каскадное удалиение т.е удаляется запрос и связанные резюме)</p>
+<h3>Request:</h3>
 <p>id - айди карточки запроса</p>
 
 ```bash
 DELETE /api/request/delete/id
+```
+
+<h3>Response:</h3>
+<p>После успешного удаления, возвращается удаленный объект карточки запроса</p>
+<p>Пример:</p>
+
+```bash
+{
+    "id": 2,
+    "createdAt": "2024-09-16T07:35:55.640Z",
+    "urlHh": "https://api.hh.ru/resumes?text=frontend&area=1102",
+    "prompt": "Frontend разработчик из Москвы"
+}
+```
+
+
+<br />
+<h1>* createRequest</h2>
+
+<p>Сохранение уже проанализированных резюме и создание запроса в бд</p>
+<h3>Request:</h3>
+
+```bash
+resumes - массив объектов резюме полученный от ассистента (scoreball service) (структура обьекта от hh)
+urlHh - сгенерированная ссылка от gpt
+prompt - запрос от юзера в поисковой строке
+```
+<p>Пример:</p>
+
+```bash
+{
+    "urlHh": "https://api.hh.ru/resumes?text=frontend&area=1102",
+    "prompt": "Frontend разработчик из Москвы",
+    "resumes": [
+        {
+            "id": "1dfg23423",
+            "firstName": "Иван",
+            "lastName": "Иванов",
+            "middleName": "Иванович",
+            "age": 25,
+            "title": "Fontend разработчик",
+            "total_experience": {
+                "months": 12
+            },
+            "scoreball": 23
+        },
+    ]
+}
+```
+
+<h3>Response:</h3>
+<p>После успешного создания получаем id карточки запроса</p>
+<p>Пример:</p>
+
+```bash
+{
+    "idRequest": 2
+}
 ```
