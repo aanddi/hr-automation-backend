@@ -3,8 +3,8 @@
 
 <br />
 <h1>* createScoreball</h2>
-<p>ИИ анализирует каждое резюме по отдельности и проставляет свой scoreball. На входе ассистент получает id ассистента и массив резюме (см. в gpt service => Assistant). Резюме соотвествует структуре hh резюме (src/common/mock/resume.mock.ts)</p>
-<p>Сервис сохраняет проанализированные резюме в бд (см. в request service => createRequests)</p>
+<p>ИИ анализирует каждое резюме по отдельности и проставляет свой scoreball. На входе ассистент получает id ассистента и резюме (см. в gpt service => Assistant). Резюме соотвествует структуре hh резюме (src/common/mock/resume.mock.ts). После анализа всех резюме сервис сохраняет проанализированные резюме в бд (см. в request service => createRequests)</p>
+
 
 <h3>Request:</h3>
 
@@ -12,13 +12,16 @@
 POST /api/scoreball
 ```
 
+```bash
+dto:
+{
+    resumes - массив объектов резюме (структура резюме - обьект от hh см. src/common/mock/resume.mock.ts)
+    urlHhRuApi - сгенерированная ссылка от gpt
+    prompt - запрос от юзера в поисковой строке
+}
+```
 <p>Пример данных:</p>
 
-```bash
-resumes - массив объектов резюме (структура обьекта от hh см. src/common/mock/resume.mock.ts)
-urlHhRuApi - сгенерированная ссылка от gpt
-prompt - запрос от юзера в поисковой строке
-```
 ```bash
 {
     "urlHhRuApi": "https://api.hh.ru/resumes?key_skills=React&professional_roles=96",
@@ -115,7 +118,7 @@ prompt - запрос от юзера в поисковой строке
 ```
 
 <h3>Response:</h3>
-<p>После успешного создания получаем id карточки запроса</p>
+<p>После успешного анализа и создания карточки запроса - получаем id карточки запроса</p>
 <p>Пример:</p>
 
 ```bash
