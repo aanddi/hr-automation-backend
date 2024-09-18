@@ -8,10 +8,6 @@ export class RequestService {
 
   async getAllRequests() {
     const requests = await this.prismaDb.request.findMany({
-      select: {
-        id: true,
-        createdAt: true,
-      },
       orderBy: {
         id: 'desc',
       },
@@ -30,8 +26,7 @@ export class RequestService {
       select: {
         id: true,
         createdAt: true,
-        urlHh: true,
-        prompt: true,
+        title: true,
         resumes: true,
       },
     });
@@ -40,8 +35,7 @@ export class RequestService {
       idRequest: request.id,
       info: {
         createdAt: request?.createdAt,
-        urlHh: request?.urlHh,
-        prompt: request?.prompt,
+        title: request?.title,
       },
       resumes: request?.resumes,
     };
@@ -55,7 +49,7 @@ export class RequestService {
     });
   }
 
-  async createRequests(resumes: IAnalyzedResume[], urlHhRuApi: string, prompt: string) {
+  async createRequests(resumes: IAnalyzedResume[], title?: string) {
     if (!resumes || resumes.length === 0)
       throw new NotFoundException(
         'Server: Резюме не найдены при сохранении в базу данных. Попробуйте повторить анализ. => createRequests',
@@ -64,8 +58,7 @@ export class RequestService {
     try {
       const newRequest = await this.prismaDb.request.create({
         data: {
-          urlHh: urlHhRuApi,
-          prompt: prompt,
+          title: title ?? null,
         },
       });
 

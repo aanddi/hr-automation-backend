@@ -20,20 +20,11 @@ let SearchController = class SearchController {
     constructor(searchService) {
         this.searchService = searchService;
     }
-    async getList() {
-        return 'Привет';
-    }
     async getListCandidates(dto) {
         return this.searchService.getListCandidates(dto);
     }
 };
 exports.SearchController = SearchController;
-__decorate([
-    (0, common_1.Get)('/test'),
-    __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
-    __metadata("design:returntype", Promise)
-], SearchController.prototype, "getList", null);
 __decorate([
     (0, common_1.HttpCode)(200),
     (0, common_1.Post)('/'),

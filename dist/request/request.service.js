@@ -18,10 +18,6 @@ let RequestService = class RequestService {
     }
     async getAllRequests() {
         const requests = await this.prismaDb.request.findMany({
-            select: {
-                id: true,
-                createdAt: true,
-            },
             orderBy: {
                 id: 'desc',
             },
@@ -38,8 +34,7 @@ let RequestService = class RequestService {
             select: {
                 id: true,
                 createdAt: true,
-                urlHh: true,
-                prompt: true,
+                title: true,
                 resumes: true,
             },
         });
@@ -47,8 +42,7 @@ let RequestService = class RequestService {
             idRequest: request.id,
             info: {
                 createdAt: request?.createdAt,
-                urlHh: request?.urlHh,
-                prompt: request?.prompt,
+                title: request?.title,
             },
             resumes: request?.resumes,
         };
@@ -60,14 +54,13 @@ let RequestService = class RequestService {
             },
         });
     }
-    async createRequests(resumes, urlHhRuApi, prompt) {
+    async createRequests(resumes, title) {
         if (!resumes || resumes.length === 0)
             throw new common_1.NotFoundException('Server: Резюме не найдены при сохранении в базу данных. Попробуйте повторить анализ. => createRequests');
         try {
             const newRequest = await this.prismaDb.request.create({
                 data: {
-                    urlHh: urlHhRuApi,
-                    prompt: prompt,
+                    title: title ?? null,
                 },
             });
             const saveResumes = resumes.map(async (resume) => {

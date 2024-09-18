@@ -1,6 +1,5 @@
-import { Body, Controller, Delete, Get, HttpCode, Param, Post } from '@nestjs/common';
+import { Controller, Delete, Get, Param } from '@nestjs/common';
 import { RequestService } from './request.service';
-import { CreateRequestDto } from './dto/create-request.dto';
 
 @Controller('request')
 export class RequestController {
@@ -14,13 +13,6 @@ export class RequestController {
   @Get('/byId/:id')
   async getRequestsById(@Param('id') idRequest: number) {
     return this.requestService.getRequestsById(idRequest);
-  }
-
-  @HttpCode(200)
-  @Post('/create')
-  async createRequest(@Body() dto: CreateRequestDto) {
-    const { resumes, urlHh, prompt } = dto;
-    return this.requestService.createRequests(resumes, urlHh, prompt);
   }
 
   @Delete('/delete/:id')

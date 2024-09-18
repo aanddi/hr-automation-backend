@@ -7,14 +7,14 @@ export declare class RequestService {
         items: {
             id: number;
             createdAt: Date;
+            title: string | null;
         }[];
     }>;
     getRequestsById(idRequest: number): Promise<{
         idRequest: number;
         info: {
             createdAt: Date;
-            urlHh: string;
-            prompt: string;
+            title: string;
         };
         resumes: {
             id: number;
@@ -33,10 +33,9 @@ export declare class RequestService {
     deleteRequestById(idRequest: number): Promise<{
         id: number;
         createdAt: Date;
-        urlHh: string | null;
-        prompt: string | null;
+        title: string | null;
     }>;
-    createRequests(resumes: IAnalyzedResume[], urlHhRuApi: string, prompt: string): Promise<{
+    createRequests(resumes: IAnalyzedResume[], title?: string): Promise<{
         idRequest: number;
     }>;
 }

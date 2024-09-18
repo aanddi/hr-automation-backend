@@ -1,5 +1,4 @@
 import { RequestService } from './request.service';
-import { CreateRequestDto } from './dto/create-request.dto';
 export declare class RequestController {
     private readonly requestService;
     constructor(requestService: RequestService);
@@ -7,14 +6,14 @@ export declare class RequestController {
         items: {
             id: number;
             createdAt: Date;
+            title: string | null;
         }[];
     }>;
     getRequestsById(idRequest: number): Promise<{
         idRequest: number;
         info: {
             createdAt: Date;
-            urlHh: string;
-            prompt: string;
+            title: string;
         };
         resumes: {
             id: number;
@@ -30,13 +29,9 @@ export declare class RequestController {
             requestId: number | null;
         }[];
     }>;
-    createRequest(dto: CreateRequestDto): Promise<{
-        idRequest: number;
-    }>;
     deleteRequestById(idRequest: number): Promise<{
         id: number;
         createdAt: Date;
-        urlHh: string | null;
-        prompt: string | null;
+        title: string | null;
     }>;
 }

@@ -16,7 +16,7 @@ export class ScoreballService {
   ) {}
 
   async createScoreball(dto: CreateScoreballDto) {
-    const { resumes, urlHhRuApi, prompt } = dto;
+    const { resumes, title } = dto;
 
     const idAssistant = this.configService.get('OPENAI_ASSISTANT_SCOREBALL_ID');
 
@@ -34,11 +34,7 @@ export class ScoreballService {
 
     await Promise.all(scoring);
 
-    const createRequest = await this.requestService.createRequests(
-      analyzedList,
-      urlHhRuApi,
-      prompt,
-    );
+    const createRequest = await this.requestService.createRequests(analyzedList, title);
 
     return {
       idRequest: createRequest.idRequest,

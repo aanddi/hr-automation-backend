@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
 }
 
@@ -11,9 +11,7 @@ model Request {
   id        Int      @id @default(autoincrement()) @map("request_id")
   createdAt DateTime @default(now()) @map("created_at")
 
-  urlHh String?     @map("url_hh")
-
-  prompt String?
+  title String?
 
   //=========== RELATIONS ===========//
   resumes Resumes[]

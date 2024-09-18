@@ -22,7 +22,7 @@ let ScoreballService = class ScoreballService {
         this.requestService = requestService;
     }
     async createScoreball(dto) {
-        const { resumes, urlHhRuApi, prompt } = dto;
+        const { resumes, title } = dto;
         const idAssistant = this.configService.get('OPENAI_ASSISTANT_SCOREBALL_ID');
         if (!resumes || resumes.length === 0)
             throw new common_1.BadRequestException('Server: Список резюме не получен. => scoreballService.createScoreball');
@@ -32,7 +32,7 @@ let ScoreballService = class ScoreballService {
             analyzedList.push((0, extract_resume_utils_1.extractResume)(item));
         });
         await Promise.all(scoring);
-        const createRequest = await this.requestService.createRequests(analyzedList, urlHhRuApi, prompt);
+        const createRequest = await this.requestService.createRequests(analyzedList, title);
         return {
             idRequest: createRequest.idRequest,
         };
