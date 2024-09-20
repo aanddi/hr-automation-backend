@@ -71,7 +71,7 @@ export class RequestService {
             middleName: resume.middle_name,
             age: resume.age,
             title: resume.title,
-            totalExperience: resume.total_experience.months,
+            totalExperience: resume?.total_experience?.months || null,
             urlResume: resume.alternate_url,
             scoreball: resume.scoreball,
             comment: resume.comment,

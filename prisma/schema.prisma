@@ -40,7 +40,7 @@ model Resumes {
 
   scoreball Int?
 
-  comment String?
+  comment String? @db.VarChar(500)
 
   //=========== RELATIONS ===========//
   Request   Request? @relation(fields: [requestId], references: [id], onDelete: Cascade)
