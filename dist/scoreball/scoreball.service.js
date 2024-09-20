@@ -29,9 +29,11 @@ let ScoreballService = class ScoreballService {
         const analyzedList = [];
         const scoring = resumes.map(async (resume) => {
             const item = await this.gptService.Assistant(idAssistant, JSON.stringify(resume));
+            console.log((0, extract_resume_utils_1.extractResume)(item));
             analyzedList.push((0, extract_resume_utils_1.extractResume)(item));
         });
         await Promise.all(scoring);
+        console.log(analyzedList);
         const createRequest = await this.requestService.createRequests(analyzedList, title);
         return {
             idRequest: createRequest.idRequest,

@@ -40,6 +40,8 @@ model Resumes {
 
   scoreball Int?
 
+  comment String?
+
   //=========== RELATIONS ===========//
   Request   Request? @relation(fields: [requestId], references: [id], onDelete: Cascade)
   requestId Int?     @map("request_id")

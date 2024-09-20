@@ -11,8 +11,9 @@ interface IAnalyzedResume {
   total_experience: {
     months: number;
   };
-  url: string;
+  alternate_url: string;
   scoreball: number;
+  comment: string;
 }
 
 // структура резюме, которую отдает hh (см. в mock пример резюме)

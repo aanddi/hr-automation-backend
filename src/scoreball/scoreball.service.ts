@@ -29,10 +29,13 @@ export class ScoreballService {
 
     const scoring = resumes.map(async (resume) => {
       const item = await this.gptService.Assistant(idAssistant, JSON.stringify(resume));
+      console.log(extractResume(item));
       analyzedList.push(extractResume(item));
     });
 
     await Promise.all(scoring);
+
+    console.log(analyzedList);
 
     const createRequest = await this.requestService.createRequests(analyzedList, title);
 

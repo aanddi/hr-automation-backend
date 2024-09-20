@@ -43,6 +43,7 @@ let GptService = class GptService {
                         }
                     }
                 }
+                console.log(generatedQuery);
                 return generatedQuery;
             }
             else {

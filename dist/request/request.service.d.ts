@@ -27,6 +27,7 @@ export declare class RequestService {
             title: string | null;
             totalExperience: number | null;
             scoreball: number | null;
+            comment: string | null;
             requestId: number | null;
         }[];
     }>;

@@ -42,6 +42,8 @@ export class GptService {
           }
         }
 
+        console.log(generatedQuery);
+
         return generatedQuery;
       } else {
         console.log('Run status:', run.status);

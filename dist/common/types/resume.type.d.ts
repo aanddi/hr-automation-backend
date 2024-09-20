@@ -9,8 +9,9 @@ interface IAnalyzedResume {
     total_experience: {
         months: number;
     };
-    url: string;
+    alternate_url: string;
     scoreball: number;
+    comment: string;
 }
 type IStructureResume = typeof mockResume;
 export type { IAnalyzedResume, IStructureResume };

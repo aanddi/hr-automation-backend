@@ -72,8 +72,9 @@ export class RequestService {
             age: resume.age,
             title: resume.title,
             totalExperience: resume.total_experience.months,
-            urlResume: resume.url,
+            urlResume: resume.alternate_url,
             scoreball: resume.scoreball,
+            comment: resume.comment,
             requestId: newRequest.id,
           },
         });

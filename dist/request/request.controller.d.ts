@@ -26,6 +26,7 @@ export declare class RequestController {
             title: string | null;
             totalExperience: number | null;
             scoreball: number | null;
+            comment: string | null;
             requestId: number | null;
         }[];
     }>;
