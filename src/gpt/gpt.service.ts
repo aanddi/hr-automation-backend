@@ -48,16 +48,15 @@ export class GptService {
       } else {
         console.log('Run status:', run.status);
         throw new BadRequestException(
-          'Server: Ошибка при создании запроса ассистенту. => gptService.Assistant',
+          'Server: Ошибка при создании запроса ассистенту. => gptService.Assistant. Run status',
         );
       }
     } catch (error) {
-      console.error(
-        'Server: Ошибка при взаимодействии с OpenAI API. => gptService.Assistant ',
-        error,
+      console.log(
+        `Server: Ошибка при взаимодействии с OpenAI API. => gptService.Assistant. ${error}`,
       );
       throw new BadRequestException(
-        'Server: Ошибка при взаимодействии с OpenAI API. => gptService.Assistant ',
+        `Server: Ошибка при взаимодействии с OpenAI API. => gptService.Assistant ${error}`,
       );
     }
   }
