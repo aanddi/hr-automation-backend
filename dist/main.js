@@ -6,7 +6,9 @@ async function bootstrap() {
     const app = await core_1.NestFactory.create(app_module_1.AppModule);
     app.enableShutdownHooks();
     app.setGlobalPrefix('api');
-    app.enableCors();
+    app.enableCors({
+        origin: ['http://localhost:5173', 'https://hr-automation.vercel.app'],
+    });
     await app.listen(5500);
 }
 bootstrap();
