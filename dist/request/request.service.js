@@ -26,6 +26,19 @@ let RequestService = class RequestService {
             items: requests,
         };
     }
+    async getRequestsByUser() {
+        const requests = await this.prismaDb.request.findMany({
+            select: {
+                id: true,
+                createdAt: true,
+                title: true,
+                resumes: true,
+            },
+        });
+        return {
+            requests,
+        };
+    }
     async getRequestsById(idRequest) {
         const request = await this.prismaDb.request.findUnique({
             where: {

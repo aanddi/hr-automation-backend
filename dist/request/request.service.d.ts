@@ -10,6 +10,27 @@ export declare class RequestService {
             title: string | null;
         }[];
     }>;
+    getRequestsByUser(): Promise<{
+        requests: {
+            resumes: {
+                id: number;
+                idResumeHh: string | null;
+                urlResume: string | null;
+                firstName: string | null;
+                lastName: string | null;
+                middleName: string | null;
+                age: number | null;
+                title: string | null;
+                totalExperience: number | null;
+                scoreball: number | null;
+                comment: string | null;
+                requestId: number | null;
+            }[];
+            id: number;
+            createdAt: Date;
+            title: string;
+        }[];
+    }>;
     getRequestsById(idRequest: number): Promise<{
         idRequest: number;
         info: {

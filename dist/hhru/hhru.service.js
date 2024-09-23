@@ -17,13 +17,11 @@ let HhruService = class HhruService {
     constructor(configService) {
         this.configService = configService;
     }
-    async searchForUrl(url) {
-        const accessToken = this.configService.get('HHRU_API_ACCESS_TOKEN');
+    async searchResume(params, accessToken) {
         try {
-            const listCandidates = await axios_1.default.get(url, {
+            const listCandidates = await axios_1.default.get(`https://api.hh.ru/resumes?${params}`, {
                 params: {
-                    page: 1,
-                    per_page: 6,
+                    per_page: 5,
                 },
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
@@ -32,8 +30,8 @@ let HhruService = class HhruService {
             return listCandidates.data;
         }
         catch (error) {
-            console.error('Error: Метод => getListСandidates', error);
-            throw new common_1.BadRequestException(`Server: Ошибка при взаимодействии с hh.ru api. Метод => hhruService.searchForUrl. url: ${url}`);
+            console.log(`Server: Ошибка при взаимодействии с hh.ru api. Метод => hhruService.searchResume`, error);
+            throw new common_1.BadRequestException(`Server: Ошибка при взаимодействии с hh.ru api. Метод => hhruService.searchResume`);
         }
     }
 };

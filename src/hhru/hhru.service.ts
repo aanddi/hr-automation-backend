@@ -6,14 +6,11 @@ import axios from 'axios';
 export class HhruService {
   constructor(private readonly configService: ConfigService) {}
 
-  async searchForUrl(url: string) {
-    const accessToken = this.configService.get('HHRU_API_ACCESS_TOKEN');
-
+  async searchResume(params: string, accessToken: string) {
     try {
-      const listCandidates = await axios.get(url, {
+      const listCandidates = await axios.get(`https://api.hh.ru/resumes?${params}`, {
         params: {
-          page: 1,
-          per_page: 6,
+          per_page: 5,
         },
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -22,9 +19,12 @@ export class HhruService {
 
       return listCandidates.data;
     } catch (error) {
-      console.error('Error: Метод => getListСandidates', error);
+      console.log(
+        `Server: Ошибка при взаимодействии с hh.ru api. Метод => hhruService.searchResume`,
+        error,
+      );
       throw new BadRequestException(
-        `Server: Ошибка при взаимодействии с hh.ru api. Метод => hhruService.searchForUrl. url: ${url}`,
+        `Server: Ошибка при взаимодействии с hh.ru api. Метод => hhruService.searchResume`,
       );
     }
   }

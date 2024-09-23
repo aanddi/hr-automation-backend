@@ -1,10 +1,12 @@
 import { SearchService } from './search.service';
-import { SearchDto } from './dto/search.dto';
 export declare class SearchController {
     private readonly searchService;
     constructor(searchService: SearchService);
-    getListCandidates(dto: SearchDto): Promise<{
-        urlHHruApi: string;
-        listCandidates: any;
+    getListResumes(authorizationHeader: string, params: string): Promise<{
+        found: any;
+        pages: any;
+        page: any;
+        per_page: any;
+        items: any;
     }>;
 }

@@ -15,24 +15,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.SearchController = void 0;
 const common_1 = require("@nestjs/common");
 const search_service_1 = require("./search.service");
-const search_dto_1 = require("./dto/search.dto");
 let SearchController = class SearchController {
     constructor(searchService) {
         this.searchService = searchService;
     }
-    async getListCandidates(dto) {
-        return this.searchService.getListCandidates(dto);
+    async getListResumes(authorizationHeader, params) {
+        const accessToken = authorizationHeader.split(' ')[1];
+        return this.searchService.getListResumes(params, accessToken);
     }
 };
 exports.SearchController = SearchController;
 __decorate([
-    (0, common_1.HttpCode)(200),
-    (0, common_1.Post)('/'),
-    __param(0, (0, common_1.Body)()),
+    (0, common_1.Get)('/resumes'),
+    __param(0, (0, common_1.Headers)('authorization')),
+    __param(1, (0, common_1.Query)('params')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [search_dto_1.SearchDto]),
+    __metadata("design:paramtypes", [String, String]),
     __metadata("design:returntype", Promise)
-], SearchController.prototype, "getListCandidates", null);
+], SearchController.prototype, "getListResumes", null);
 exports.SearchController = SearchController = __decorate([
     (0, common_1.Controller)('search'),
     __metadata("design:paramtypes", [search_service_1.SearchService])

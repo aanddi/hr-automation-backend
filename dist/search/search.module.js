@@ -11,15 +11,15 @@ const common_1 = require("@nestjs/common");
 const search_service_1 = require("./search.service");
 const search_controller_1 = require("./search.controller");
 const hhru_service_1 = require("../hhru/hhru.service");
-const gpt_service_1 = require("../gpt/gpt.service");
+const request_service_1 = require("../request/request.service");
+const _prisma_service_1 = require("../prisma.service");
 let SearchModule = class SearchModule {
 };
 exports.SearchModule = SearchModule;
 exports.SearchModule = SearchModule = __decorate([
     (0, common_1.Module)({
-        imports: [],
         controllers: [search_controller_1.SearchController],
-        providers: [search_service_1.SearchService, hhru_service_1.HhruService, gpt_service_1.GptService],
+        providers: [search_service_1.SearchService, hhru_service_1.HhruService, request_service_1.RequestService, _prisma_service_1.PrismaService],
     })
 ], SearchModule);
 //# sourceMappingURL=search.module.js.map
