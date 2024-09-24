@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, Post } from '@nestjs/common';
+import { Body, Controller, HttpCode, Post, Headers } from '@nestjs/common';
 import { ScoreballService } from './scoreball.service';
 import { CreateScoreballDto } from './dto/create-scoreball.dto';
 
@@ -8,7 +8,11 @@ export class ScoreballController {
 
   @HttpCode(200)
   @Post()
-  async createScoreball(@Body() dto: CreateScoreballDto) {
-    return this.scoreballService.createScoreball(dto);
+  async createScoreball(
+    @Body() dto: CreateScoreballDto,
+    @Headers('authorization') authorizationHeader: string,
+  ) {
+    const accessToken = authorizationHeader?.split(' ')[1] || '';
+    return this.scoreballService.createScoreball(dto, accessToken);
   }
 }

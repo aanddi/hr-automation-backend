@@ -13,13 +13,14 @@ const scoreball_service_1 = require("./scoreball.service");
 const gpt_service_1 = require("../gpt/gpt.service");
 const request_service_1 = require("../request/request.service");
 const scoreball_controller_1 = require("./scoreball.controller");
+const hhru_service_1 = require("../hhru/hhru.service");
 let ScoreballModule = class ScoreballModule {
 };
 exports.ScoreballModule = ScoreballModule;
 exports.ScoreballModule = ScoreballModule = __decorate([
     (0, common_1.Module)({
         controllers: [scoreball_controller_1.ScoreballController],
-        providers: [scoreball_service_1.ScoreballService, gpt_service_1.GptService, request_service_1.RequestService, _prisma_service_1.PrismaService],
+        providers: [scoreball_service_1.ScoreballService, gpt_service_1.GptService, request_service_1.RequestService, _prisma_service_1.PrismaService, hhru_service_1.HhruService],
     })
 ], ScoreballModule);
 //# sourceMappingURL=scoreball.module.js.map

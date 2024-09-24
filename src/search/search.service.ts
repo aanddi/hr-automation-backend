@@ -14,21 +14,22 @@ export class SearchService {
     const resumes = await this.hhruService.searchResume(params, accessToken);
     const { requests } = await this.requestService.getRequestsByUser();
 
-    const newResumes = resumes.items.map((resume) => {
-      const idHH = resume.id;
+    const findRequestId = (resumeId) => {
+      const request = requests.find((request) =>
+        request?.resumes?.some((resumeRequest) => resumeId === resumeRequest.idResumeHh),
+      );
+      return request ? request.id : null;
+    };
 
-      const idRequest = requests.find((request) => {
-        const requestResume = request?.resumes;
-        return requestResume?.some((resumeRequest) => idHH === resumeRequest.idResumeHh);
-      })?.id;
-
+    const mapResumes = (resume) => {
+      const idRequest = findRequestId(resume.id);
       return {
         ...resume,
-        scoring: {
-          idRequest,
-        },
+        scoring: { idRequest },
       };
-    });
+    };
+
+    const newResumes = resumes.items.map(mapResumes);
 
     return {
       found: resumes.found,

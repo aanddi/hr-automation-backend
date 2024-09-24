@@ -6,6 +6,7 @@ import { ConfigService } from '@nestjs/config';
 import { extractResume } from '../common/utils/extract-resume.utils';
 import { RequestService } from 'src/request/request.service';
 import { IAnalyzedResume } from 'src/common/types/resume.type';
+import { HhruService } from '@hhru/hhru.service';
 
 @Injectable()
 export class ScoreballService {
@@ -13,9 +14,10 @@ export class ScoreballService {
     private readonly gptService: GptService,
     private readonly configService: ConfigService,
     private readonly requestService: RequestService,
+    private readonly hhruService: HhruService,
   ) {}
 
-  async createScoreball(dto: CreateScoreballDto) {
+  async createScoreball(dto: CreateScoreballDto, accessToken: string) {
     const { resumes, title } = dto;
 
     const idAssistant = this.configService.get('OPENAI_ASSISTANT_SCOREBALL_ID');
@@ -28,9 +30,12 @@ export class ScoreballService {
     const analyzedList: IAnalyzedResume[] = [];
 
     const scoring = resumes.map(async (resume) => {
-      const item = await this.gptService.Assistant(idAssistant, JSON.stringify(resume));
-      console.log(extractResume(item));
-      analyzedList.push(extractResume(item));
+      const fullResume = await this.hhruService.getResumeById(resume.id, accessToken);
+      const itemResult = await this.gptService.Assistant(
+        idAssistant,
+        JSON.stringify(fullResume.data),
+      );
+      analyzedList.push(extractResume(itemResult));
     });
 
     await Promise.all(scoring);

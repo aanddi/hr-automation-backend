@@ -28,4 +28,32 @@ export class HhruService {
       );
     }
   }
+
+  async getResumeById(id: string, accessToken: string) {
+    if (!id)
+      throw new BadRequestException(
+        `Server: Ошибка при взаимодействии с hh.ru api. Id резюме не найдено. Метод => hhruService.getResumeById`,
+      );
+
+    try {
+      const resume = await axios.get(`https://api.hh.ru/resumes/${id}`, {
+        params: {
+          per_page: 5,
+        },
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      return resume;
+    } catch (error) {
+      console.log(
+        `Server: Ошибка при взаимодействии с hh.ru api. Метод => hhruService.getResumeById`,
+        error,
+      );
+      throw new BadRequestException(
+        `Server: Ошибка при взаимодействии с hh.ru api. Метод => hhruService.getResumeById`,
+      );
+    }
+  }
 }

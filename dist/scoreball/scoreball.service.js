@@ -15,22 +15,24 @@ const gpt_service_1 = require("../gpt/gpt.service");
 const config_1 = require("@nestjs/config");
 const extract_resume_utils_1 = require("../common/utils/extract-resume.utils");
 const request_service_1 = require("../request/request.service");
+const hhru_service_1 = require("../hhru/hhru.service");
 let ScoreballService = class ScoreballService {
-    constructor(gptService, configService, requestService) {
+    constructor(gptService, configService, requestService, hhruService) {
         this.gptService = gptService;
         this.configService = configService;
         this.requestService = requestService;
+        this.hhruService = hhruService;
     }
-    async createScoreball(dto) {
+    async createScoreball(dto, accessToken) {
         const { resumes, title } = dto;
         const idAssistant = this.configService.get('OPENAI_ASSISTANT_SCOREBALL_ID');
         if (!resumes || resumes.length === 0)
             throw new common_1.BadRequestException('Server: Список резюме не получен. => scoreballService.createScoreball');
         const analyzedList = [];
         const scoring = resumes.map(async (resume) => {
-            const item = await this.gptService.Assistant(idAssistant, JSON.stringify(resume));
-            console.log((0, extract_resume_utils_1.extractResume)(item));
-            analyzedList.push((0, extract_resume_utils_1.extractResume)(item));
+            const fullResume = await this.hhruService.getResumeById(resume.id, accessToken);
+            const itemResult = await this.gptService.Assistant(idAssistant, JSON.stringify(fullResume.data));
+            analyzedList.push((0, extract_resume_utils_1.extractResume)(itemResult));
         });
         await Promise.all(scoring);
         console.log(analyzedList);
@@ -45,6 +47,7 @@ exports.ScoreballService = ScoreballService = __decorate([
     (0, common_1.Injectable)(),
     __metadata("design:paramtypes", [gpt_service_1.GptService,
         config_1.ConfigService,
-        request_service_1.RequestService])
+        request_service_1.RequestService,
+        hhru_service_1.HhruService])
 ], ScoreballService);
 //# sourceMappingURL=scoreball.service.js.map

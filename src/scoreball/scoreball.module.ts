@@ -4,9 +4,10 @@ import { ScoreballService } from './scoreball.service';
 import { GptService } from '@gpt/gpt.service';
 import { RequestService } from '@request/request.service';
 import { ScoreballController } from './scoreball.controller';
+import { HhruService } from '@hhru/hhru.service';
 
 @Module({
   controllers: [ScoreballController],
-  providers: [ScoreballService, GptService, RequestService, PrismaService],
+  providers: [ScoreballService, GptService, RequestService, PrismaService, HhruService],
 })
 export class ScoreballModule {}

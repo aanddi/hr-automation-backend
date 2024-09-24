@@ -34,6 +34,25 @@ let HhruService = class HhruService {
             throw new common_1.BadRequestException(`Server: Ошибка при взаимодействии с hh.ru api. Метод => hhruService.searchResume`);
         }
     }
+    async getResumeById(id, accessToken) {
+        if (!id)
+            throw new common_1.BadRequestException(`Server: Ошибка при взаимодействии с hh.ru api. Id резюме не найдено. Метод => hhruService.getResumeById`);
+        try {
+            const resume = await axios_1.default.get(`https://api.hh.ru/resumes/${id}`, {
+                params: {
+                    per_page: 5,
+                },
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            });
+            return resume;
+        }
+        catch (error) {
+            console.log(`Server: Ошибка при взаимодействии с hh.ru api. Метод => hhruService.getResumeById`, error);
+            throw new common_1.BadRequestException(`Server: Ошибка при взаимодействии с hh.ru api. Метод => hhruService.getResumeById`);
+        }
+    }
 };
 exports.HhruService = HhruService;
 exports.HhruService = HhruService = __decorate([

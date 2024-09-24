@@ -20,8 +20,9 @@ let ScoreballController = class ScoreballController {
     constructor(scoreballService) {
         this.scoreballService = scoreballService;
     }
-    async createScoreball(dto) {
-        return this.scoreballService.createScoreball(dto);
+    async createScoreball(dto, authorizationHeader) {
+        const accessToken = authorizationHeader?.split(' ')[1] || '';
+        return this.scoreballService.createScoreball(dto, accessToken);
     }
 };
 exports.ScoreballController = ScoreballController;
@@ -29,8 +30,9 @@ __decorate([
     (0, common_1.HttpCode)(200),
     (0, common_1.Post)(),
     __param(0, (0, common_1.Body)()),
+    __param(1, (0, common_1.Headers)('authorization')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [create_scoreball_dto_1.CreateScoreballDto]),
+    __metadata("design:paramtypes", [create_scoreball_dto_1.CreateScoreballDto, String]),
     __metadata("design:returntype", Promise)
 ], ScoreballController.prototype, "createScoreball", null);
 exports.ScoreballController = ScoreballController = __decorate([
