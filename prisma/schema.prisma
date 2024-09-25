@@ -11,7 +11,8 @@ model Request {
   id        Int      @id @default(autoincrement()) @map("request_id")
   createdAt DateTime @default(now()) @map("created_at")
 
-  title String?
+  title         String?
+  isDeepScoring Boolean? @map("is_deep_scoring")
 
   //=========== RELATIONS ===========//
   resumes Resumes[]

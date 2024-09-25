@@ -7,6 +7,7 @@ export declare class RequestController {
             id: number;
             createdAt: Date;
             title: string | null;
+            isDeepScoring: boolean | null;
         }[];
     }>;
     getRequestsById(idRequest: number): Promise<{
@@ -14,6 +15,7 @@ export declare class RequestController {
         info: {
             createdAt: Date;
             title: string;
+            isDeepScoring: boolean;
         };
         resumes: {
             id: number;
@@ -34,5 +36,6 @@ export declare class RequestController {
         id: number;
         createdAt: Date;
         title: string | null;
+        isDeepScoring: boolean | null;
     }>;
 }

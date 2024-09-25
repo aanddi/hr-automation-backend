@@ -24,6 +24,7 @@ export class RequestService {
         id: true,
         createdAt: true,
         title: true,
+        isDeepScoring: true,
         resumes: true,
       },
     });
@@ -42,6 +43,7 @@ export class RequestService {
         id: true,
         createdAt: true,
         title: true,
+        isDeepScoring: true,
         resumes: true,
       },
     });
@@ -51,6 +53,7 @@ export class RequestService {
       info: {
         createdAt: request?.createdAt,
         title: request?.title,
+        isDeepScoring: request.isDeepScoring,
       },
       resumes: request?.resumes,
     };
@@ -64,7 +67,7 @@ export class RequestService {
     });
   }
 
-  async createRequests(resumes: IAnalyzedResume[], title?: string) {
+  async createRequests(resumes: IAnalyzedResume[], title?: string, isDeepScoring?: boolean) {
     if (!resumes || resumes.length === 0)
       throw new NotFoundException(
         'Server: Резюме не найдены при сохранении в базу данных. Попробуйте повторить анализ. => createRequests',
@@ -74,6 +77,7 @@ export class RequestService {
       const newRequest = await this.prismaDb.request.create({
         data: {
           title: title ?? null,
+          isDeepScoring: isDeepScoring,
         },
       });
 

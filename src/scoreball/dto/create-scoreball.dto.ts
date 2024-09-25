@@ -1,4 +1,7 @@
+import { IStructureResume } from '@common/types/resume.type';
+
 export class CreateScoreballDto {
-  resumes: { id: string }[];
+  resumes: IStructureResume[];
   title: string;
+  isDeepScoring: boolean;
 }

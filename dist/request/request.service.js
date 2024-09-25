@@ -32,6 +32,7 @@ let RequestService = class RequestService {
                 id: true,
                 createdAt: true,
                 title: true,
+                isDeepScoring: true,
                 resumes: true,
             },
         });
@@ -48,6 +49,7 @@ let RequestService = class RequestService {
                 id: true,
                 createdAt: true,
                 title: true,
+                isDeepScoring: true,
                 resumes: true,
             },
         });
@@ -56,6 +58,7 @@ let RequestService = class RequestService {
             info: {
                 createdAt: request?.createdAt,
                 title: request?.title,
+                isDeepScoring: request.isDeepScoring,
             },
             resumes: request?.resumes,
         };
@@ -67,13 +70,14 @@ let RequestService = class RequestService {
             },
         });
     }
-    async createRequests(resumes, title) {
+    async createRequests(resumes, title, isDeepScoring) {
         if (!resumes || resumes.length === 0)
             throw new common_1.NotFoundException('Server: Резюме не найдены при сохранении в базу данных. Попробуйте повторить анализ. => createRequests');
         try {
             const newRequest = await this.prismaDb.request.create({
                 data: {
                     title: title ?? null,
+                    isDeepScoring: isDeepScoring,
                 },
             });
             const saveResumes = resumes.map(async (resume) => {

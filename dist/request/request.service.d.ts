@@ -8,10 +8,15 @@ export declare class RequestService {
             id: number;
             createdAt: Date;
             title: string | null;
+            isDeepScoring: boolean | null;
         }[];
     }>;
     getRequestsByUser(): Promise<{
         requests: {
+            id: number;
+            createdAt: Date;
+            title: string;
+            isDeepScoring: boolean;
             resumes: {
                 id: number;
                 idResumeHh: string | null;
@@ -26,9 +31,6 @@ export declare class RequestService {
                 comment: string | null;
                 requestId: number | null;
             }[];
-            id: number;
-            createdAt: Date;
-            title: string;
         }[];
     }>;
     getRequestsById(idRequest: number): Promise<{
@@ -36,6 +38,7 @@ export declare class RequestService {
         info: {
             createdAt: Date;
             title: string;
+            isDeepScoring: boolean;
         };
         resumes: {
             id: number;
@@ -56,8 +59,9 @@ export declare class RequestService {
         id: number;
         createdAt: Date;
         title: string | null;
+        isDeepScoring: boolean | null;
     }>;
-    createRequests(resumes: IAnalyzedResume[], title?: string): Promise<{
+    createRequests(resumes: IAnalyzedResume[], title?: string, isDeepScoring?: boolean): Promise<{
         idRequest: number;
     }>;
 }

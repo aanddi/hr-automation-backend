@@ -11,6 +11,7 @@ export class HhruService {
       const listCandidates = await axios.get(`https://api.hh.ru/resumes?${params}`, {
         params: {
           per_page: 5,
+          with_job_search_status: true,
         },
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -24,7 +25,7 @@ export class HhruService {
         error,
       );
       throw new BadRequestException(
-        `Server: Ошибка при взаимодействии с hh.ru api. Метод => hhruService.searchResume`,
+        `Server: Ошибка при взаимодействии с hh.ru api. Метод => hhruService.searchResume. ${error}`,
       );
     }
   }
@@ -52,7 +53,7 @@ export class HhruService {
         error,
       );
       throw new BadRequestException(
-        `Server: Ошибка при взаимодействии с hh.ru api. Метод => hhruService.getResumeById`,
+        `Server: Ошибка при взаимодействии с hh.ru api. Метод => hhruService.getResumeById. ${error}`,
       );
     }
   }

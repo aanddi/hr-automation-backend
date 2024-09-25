@@ -22,6 +22,7 @@ let HhruService = class HhruService {
             const listCandidates = await axios_1.default.get(`https://api.hh.ru/resumes?${params}`, {
                 params: {
                     per_page: 5,
+                    with_job_search_status: true,
                 },
                 headers: {
                     Authorization: `Bearer ${accessToken}`,
@@ -31,7 +32,7 @@ let HhruService = class HhruService {
         }
         catch (error) {
             console.log(`Server: Ошибка при взаимодействии с hh.ru api. Метод => hhruService.searchResume`, error);
-            throw new common_1.BadRequestException(`Server: Ошибка при взаимодействии с hh.ru api. Метод => hhruService.searchResume`);
+            throw new common_1.BadRequestException(`Server: Ошибка при взаимодействии с hh.ru api. Метод => hhruService.searchResume. ${error}`);
         }
     }
     async getResumeById(id, accessToken) {
@@ -50,7 +51,7 @@ let HhruService = class HhruService {
         }
         catch (error) {
             console.log(`Server: Ошибка при взаимодействии с hh.ru api. Метод => hhruService.getResumeById`, error);
-            throw new common_1.BadRequestException(`Server: Ошибка при взаимодействии с hh.ru api. Метод => hhruService.getResumeById`);
+            throw new common_1.BadRequestException(`Server: Ошибка при взаимодействии с hh.ru api. Метод => hhruService.getResumeById. ${error}`);
         }
     }
 };

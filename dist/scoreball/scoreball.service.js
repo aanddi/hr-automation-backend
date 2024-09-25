@@ -24,19 +24,24 @@ let ScoreballService = class ScoreballService {
         this.hhruService = hhruService;
     }
     async createScoreball(dto, accessToken) {
-        const { resumes, title } = dto;
+        const { resumes, title, isDeepScoring } = dto;
         const idAssistant = this.configService.get('OPENAI_ASSISTANT_SCOREBALL_ID');
         if (!resumes || resumes.length === 0)
             throw new common_1.BadRequestException('Server: Список резюме не получен. => scoreballService.createScoreball');
         const analyzedList = [];
         const scoring = resumes.map(async (resume) => {
-            const fullResume = await this.hhruService.getResumeById(resume.id, accessToken);
-            const itemResult = await this.gptService.Assistant(idAssistant, JSON.stringify(fullResume.data));
+            let resumeType;
+            if (isDeepScoring) {
+                const fullresume = await this.hhruService.getResumeById(resume.id, accessToken);
+                resumeType = fullresume.data;
+            }
+            else
+                resumeType = resume;
+            const itemResult = await this.gptService.Assistant(idAssistant, JSON.stringify(resumeType));
             analyzedList.push((0, extract_resume_utils_1.extractResume)(itemResult));
         });
         await Promise.all(scoring);
-        console.log(analyzedList);
-        const createRequest = await this.requestService.createRequests(analyzedList, title);
+        const createRequest = await this.requestService.createRequests(analyzedList, title, isDeepScoring);
         return {
             idRequest: createRequest.idRequest,
         };
