@@ -21,7 +21,7 @@ let HhruService = class HhruService {
         try {
             const listCandidates = await axios_1.default.get(`https://api.hh.ru/resumes?${params}`, {
                 params: {
-                    per_page: 15,
+                    per_page: 5,
                     with_job_search_status: true,
                 },
                 headers: {
